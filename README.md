@@ -16,4 +16,33 @@ Projeto web para cadastro e visualização de produtos usados (inspirado em clas
 - Frontend: HTML/Thymeleaf + CSS customizado (responsivo).
 - Ferramentas: Maven, VS Code (recomendado).
 
-## Estrutura do Projeto
+## Estrutura do Projeto:
+
+achadinhosdavez/     
+├─ .gitignore
+├─ README.md 
+├─ pom.xml
+├─ src/
+│  ├─ main/
+│  │  ├─ java/com/achadinhos/
+│  │  │  ├─ AchadinhosApplication.java
+│  │  │  ├─ controller/
+│  │  │  │  └─ ProductController.java
+│  │  │  ├─ model/
+│  │  │  │  └─ Product.java
+│  │  │  ├─ repository/
+│  │  │  │  └─ ProductRepository.java
+│  │  │  └─ service/
+│  │  │     └─ ProductService.java
+│  │  ├─ resources/
+│  │  │  ├─ application.properties
+│  │  │  ├─ static/
+│  │  │  │  ├─ css/
+│  │  │  │  │  └─ styles.css
+│  │  │  │  └─ uploads/       <-- (criada em runtime para imagens)
+│  │  │  └─ templates/
+│  │  │     ├─ index.html
+│  │  │     ├─ product_form.html
+│  │  │     └─ product_detail.html
+└─ sql/
+   └─ create_db.sql
