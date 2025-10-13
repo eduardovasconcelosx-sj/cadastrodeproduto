@@ -1,6 +1,6 @@
 # Achadinhos da Vez
 
-Projeto web simples para cadastro e visualização de produtos usados (inspirado em classificados locais). Desenvolvido com **Spring Boot 3.1.4**, **Thymeleaf**, **MySQL** e **Maven**. Layout inspirado em uma página de produto com cores laranja/bege, cards e upload de até 5 fotos.
+Projeto web para cadastro e visualização de produtos usados (inspirado em classificados locais). Desenvolvido com **Spring Boot 3.1.4**, **Thymeleaf**, **MySQL** e **Maven**. Layout inspirado em uma página de produto com cores laranja/bege, cards e upload de até 5 fotos.
 
 ## Funcionalidades
 - **Lista de produtos** (página inicial com cards).
@@ -8,7 +8,7 @@ Projeto web simples para cadastro e visualização de produtos usados (inspirado
 - **Detalhes do produto** (página com imagem principal, miniaturas, infos e contato).
 - **Integração com MySQL** (armazena produtos e caminhos de imagens).
 - **Upload de imagens** (salva em pasta local, exibe via paths relativos).
-- **API simples** (`/api/products` retorna JSON para integrações futuras).
+- **API** (`/api/products` retorna para integrações futuras).
 
 ## Tecnologias
 - Backend: Java 17, Spring Boot (Web, JPA, Thymeleaf, Validation).
