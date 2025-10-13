@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>Cadastrar Produto - Achadinhos da Vez</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">Achadinhos da Vez</div>
+    <nav>
+      <a href="/">Home</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Cadastro de Produto</h2>
+
+    <div class="form-card">
+      <form th:action="@{/products}" th:object="${product}" method="post" enctype="multipart/form-data">
+        <div class="input-group">
+          <label for="title">Nome do Produto</label>
+          <input type="text" th:field="*{title}" id="title" required />
+        </div>
+
+        <div class="input-group">
+          <label for="price">Preço (R$)</label>
+          <input type="number" th:field="*{price}" id="price" step="0.01" min="0" required />
+        </div>
+
+        <div class="input-group">
+          <label for="size">Tamanho</label>
+          <input type="text" th:field="*{size}" id="size" />
+        </div>
+
+        <div class="input-group">
+          <label for="description">Descrição</label>
+          <textarea th:field="*{description}" id="description" rows="4"></textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="city">Cidade</label>
+          <input type="text" th:field="*{city}" id="city" />
+        </div>
+
+        <div class="input-group">
+          <label for="paymentMethod">Formas de Pagamento</label>
+          <input type="text" th:field="*{paymentMethod}" id="paymentMethod" />
+        </div>
+
+        <div class="input-group">
+          <label for="sellerName">Nome do Vendedor</label>
+          <input type="text" th:field="*{sellerName}" id="sellerName" required />
+        </div>
+
+        <div class="input-group">
+          <label for="sellerPhone">Telefone do Vendedor</label>
+          <input type="tel" th:field="*{sellerPhone}" id="sellerPhone" />
+        </div>
+
+        <div class="input-group">
+          <label for="sellerEmail">Email do Vendedor</label>
+          <input type="email" th:field="*{sellerEmail}" id="sellerEmail" />
+        </div>
+
+        <div class="input-group">
+          <label for="photos">Fotos (até 5 imagens)</label>
+          <input type="file" id="photos" name="photos" accept="image/*" multiple max="5" />
+          <div class="small-muted">Escolha até 5 arquivos. Arquivos suportados: jpg, png, webp. Máximo 5MB cada.</div>
+        </div>
+
+        <button type="submit" class="contact-btn">Cadastrar Produto</button>
+      </form>
+      
+      <div th:if="${error}" class="error" th:text="${error}">Erro de exemplo</div>
+    </div>
+  </div>
+</body>
+</html>

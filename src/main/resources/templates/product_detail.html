@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.title}">Detalhes do Produto</title>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff6f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ee8963;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #ffe3d6;
+        }
+
+        .product-detail-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* --- Carrossel --- */
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .carousel-btn {
+            background-color: #ee8963;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background-color: #d06d4f;
+        }
+
+        .thumbnails {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            transition: border 0.3s;
+        }
+
+        .thumbnail.active {
+            border-color: #ee8963;
+        }
+
+        #mainImage {
+            width: 260px;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            transition: opacity 0.3s;
+        }
+
+        /* --- Informações --- */
+        .product-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .product-info h2 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info p {
+            margin: 0.25rem 0;
+            color: #555;
+        }
+
+        .product-info hr {
+            margin: 1rem 0;
+            border: none;
+            border-top: 1px solid #eee;
+        }
+
+        /* --- Botões --- */
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ee8963;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #d06d4f;
+        }
+
+        .btn-delete {
+            background-color: #ff5555;
+        }
+
+        .btn-delete:hover {
+            background-color: #d93636;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 🔸 Cabeçalho Original -->
+<header>
+    <h1>Achadinhos da Vez</h1>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/products/new}">Cadastrar Produto</a>
+    </nav>
+</header>
+
+<!-- 🔸 Conteúdo do produto -->
+<div class="product-detail-container">
+    <!-- Galeria -->
+    <div class="carousel-container">
+        <div class="thumbnails">
+            <img th:if="${product.photo1}" th:src="${product.photo1}" class="thumbnail active" onclick="showPhoto(1)">
+            <img th:if="${product.photo2}" th:src="${product.photo2}" class="thumbnail" onclick="showPhoto(2)">
+            <img th:if="${product.photo3}" th:src="${product.photo3}" class="thumbnail" onclick="showPhoto(3)">
+            <img th:if="${product.photo4}" th:src="${product.photo4}" class="thumbnail" onclick="showPhoto(4)">
+            <img th:if="${product.photo5}" th:src="${product.photo5}" class="thumbnail" onclick="showPhoto(5)">
+        </div>
+
+        <button class="carousel-btn" onclick="previousPhoto()">&#10094;</button>
+        <img id="mainImage"
+     th:src="${product.photo1}"
+     th:attr="data-photo1=${product.photo1},
+              data-photo2=${product.photo2},
+              data-photo3=${product.photo3},
+              data-photo4=${product.photo4},
+              data-photo5=${product.photo5}"
+     alt="Imagem do Produto">
+
+        <button class="carousel-btn" onclick="nextPhoto()">&#10095;</button>
+    </div>
+
+    <!-- Informações -->
+    <div class="product-info">
+        <h2 th:text="${product.title}">Título do Produto</h2>
+        <p><strong>Preço:</strong> R$ <span th:text="${product.price}"></span></p>
+        <p><strong>Tamanho:</strong> <span th:text="${product.size}"></span></p>
+        <p><strong>Descrição:</strong> <span th:text="${product.description}"></span></p>
+        <p><strong>Cidade:</strong> <span th:text="${product.city}"></span></p>
+        <p><strong>Pagamento:</strong> <span th:text="${product.paymentMethod}"></span></p>
+
+        <hr>
+
+        <p><strong>Vendedor:</strong> <span th:text="${product.sellerName}"></span></p>
+        <p><strong>Telefone:</strong> <span th:text="${product.sellerPhone}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${product.sellerEmail}"></span></p>
+
+        <div class="btn-container">
+            <a th:href="'mailto:' + ${product.sellerEmail}" class="btn">Entrar em contato</a>
+
+            <form th:action="@{'/products/' + ${product.id} + '/delete'}" method="post"
+                  onsubmit="return confirm('Tem certeza que deseja excluir este produto?');">
+                <button type="submit" class="btn btn-delete">Excluir</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 🔸 Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let currentPhoto = 1;
+
+    // Obtém as fotos a partir dos atributos data-*
+    const photos = [];
+    for (let i = 1; i <= 5; i++) {
+      const photo = document.getElementById("mainImage").dataset["photo" + i];
+      if (photo && photo !== "null" && photo.trim() !== "") {
+        photos.push(photo);
+      }
+    }
+
+    const mainImg = document.getElementById("mainImage");
+
+    function showPhoto(index) {
+      if (!mainImg || index < 1 || index > photos.length) return;
+      mainImg.style.opacity = 0;
+      setTimeout(() => {
+        mainImg.src = photos[index - 1];
+        mainImg.style.opacity = 1;
+      }, 150);
+      currentPhoto = index;
+      document.querySelectorAll(".thumbnail").forEach((thumb, i) => {
+        thumb.classList.toggle("active", i + 1 === currentPhoto);
+      });
+    }
+
+    window.previousPhoto = function () {
+      if (photos.length <= 1) return;
+      currentPhoto = (currentPhoto - 2 + photos.length) % photos.length + 1;
+      showPhoto(currentPhoto);
+    };
+
+    window.nextPhoto = function () {
+      if (photos.length <= 1) return;
+      currentPhoto = (currentPhoto % photos.length) + 1;
+      showPhoto(currentPhoto);
+    };
+
+    // Oculta setas se só houver uma imagem
+    if (photos.length <= 1) {
+      document.querySelectorAll(".carousel-btn").forEach(btn => btn.style.display = "none");
+    }
+  });
+</script>
+
+
+</body>
+</html>

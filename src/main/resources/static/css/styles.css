@@ -1,0 +1,687 @@
+/* styles.css - paleta baseada na imagem (cores laranja/bege, tipografia simples) */
+:root {
+  --primary: #E78A67; /* cor do header e botão */
+  --background: #FFF7F2;
+  --card-bg: #FFFFFF;
+  --text-dark: #4B2B24;
+  --muted: #6b4f48;
+  --accent: #F6E7DF;
+  --error: #d32f2f;
+}
+
+body {
+  font-family: "Arial", "Helvetica", sans-serif;
+  background: linear-gradient(180deg, var(--background) 0%, #FFEFE6 100%);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.header {
+  background: var(--primary);
+  padding: 14px 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header .brand {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.header nav a {
+  color: white;
+  margin-left: 18px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.3s;
+}
+
+.header nav a:hover {
+  opacity: 0.8;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 10px;
+}
+
+/* Lista de produtos no index */
+.products-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.product-item {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.product-item h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: var(--text-dark);
+}
+
+.product-item .price {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.product-item .meta {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Layout de detalhe do produto */
+.product-card {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  margin-top: 20px;
+}
+
+.product-image {
+  flex: 0 0 420px;
+}
+
+/* --- GALERIA DE FOTOS (NOVO ESTILO COMPLETO) --- */
+
+/* Galeria de Fotos (Miniaturas Esquerda + Principal Direita) */
+.gallery-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 600px; /* Limite total para caber no card */
+}
+
+.thumbnails-vertical {
+  flex: 0 0 100px; /* Largura fixa para miniaturas (esquerda) */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 300px; /* Altura igual à principal para alinhar */
+  overflow-y: auto; /* Scroll se >5, mas max 5 OK */
+}
+
+.thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s, transform 0.3s;
+  opacity: 0.7;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.thumbnail.active {
+  border-color: var(--primary); /* Borda laranja na selecionada */
+  opacity: 1;
+}
+
+/* Principal Grande à Direita */
+.main-image-section {
+  flex: 1; /* Ocupa o resto do espaço */
+  position: relative;
+  max-width: 420px; /* Tamanho original da principal */
+}
+
+.main-image-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Altura fixa para principal grande */
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f0f0f0;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Preenche sem distorcer */
+  display: block;
+  border-radius: 6px;
+}
+
+/* Setas (Visíveis e Sobrepostas na Principal) */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(231, 138, 103, 0.8); /* Primary com transparência */
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s;
+  display: block;
+}
+
+.carousel-btn:hover {
+  background: var(--primary);
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+/* Fallback sem imagens */
+.no-images {
+  font-style: italic;
+  border: 2px dashed #ddd;
+  border-radius: 6px;
+  padding: 40px;
+  text-align: center;
+}
+
+/* Responsivo (Mobile: Stack Vertical) */
+@media (max-width: 768px) {
+  .gallery-container {
+    flex-direction: column; /* Miniaturas em cima, principal embaixo */
+    gap: 10px;
+  }
+
+  .thumbnails-vertical {
+    flex-direction: row; /* Horizontal em mobile para economizar espaço */
+    height: auto;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .thumbnails {
+    flex-direction: row;
+  }
+
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+
+  .main-image-section {
+    max-width: 100%;
+  }
+
+  .main-image-container {
+    height: 250px;
+  }
+
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+}
+
+/* --- FIM DA NOVA GALERIA --- */
+
+.product-info {
+  flex: 1;
+}
+
+.product-info h1 {
+  font-size: 36px;
+  margin: 0 0 10px 0;
+  color: var(--text-dark);
+}
+
+.price {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 26px;
+  margin-bottom: 18px;
+}
+
+.meta {
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-weight: 600;
+  display: block;
+}
+
+.section-title {
+  margin-top: 18px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-dark);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 5px;
+}
+
+.contact-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.contact-btn:hover {
+  background: #d67855;
+}
+
+/* Botão de exclusão */
+.delete-btn {
+  background: #d32f2f;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  margin-left: 10px;
+  transition: background 0.3s;
+}
+
+.delete-btn:hover {
+  background: #b71c1c;
+}
+
+/* Responsivo básico */
+@media (max-width: 768px) {
+  .product-card {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .product-image {
+    flex: none;
+    width: 100%;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .header nav {
+    margin-top: 10px;
+  }
+
+  .header nav a {
+    margin-left: 0;
+    margin-right: 18px;
+  }
+}
+
+
+
+
+
+
+/* styles.css - Estilos para Cadastro de Produto (Formulário) */
+/* (Adicione no final do arquivo existente; usa variáveis do :root) */
+
+:root {
+  --primary: #E78A67; /* Cor laranja do header e botão */
+  --background: #FFF7F2;
+  --card-bg: #FFFFFF;
+  --text-dark: #4B2B24;
+  --muted: #6b4f48;
+  --accent: #F6E7DF;
+  --error: #d32f2f;
+}
+
+body {
+  font-family: "Arial", "Helvetica", sans-serif;
+  background: linear-gradient(180deg, var(--background) 0%, #FFEFE6 100%);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Header (comum a todas as páginas) */
+.header {
+  background: var(--primary);
+  padding: 14px 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header .brand {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.header nav a {
+  color: white;
+  margin-left: 18px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.3s;
+}
+
+.header nav a:hover {
+  opacity: 0.8;
+}
+
+/* Container Principal */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 10px;
+}
+
+/* Título da Página */
+h2 {
+  text-align: center;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Card do Formulário */
+.form-card {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  margin-top: 20px;
+  max-width: 600px;  /* Largura fixa para form centralizado */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Grupos de Input */
+.input-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 14px;
+}
+
+/* Inputs e Textarea (text, email, number, tel) */
+input[type="text"], 
+input[type="email"], 
+input[type="number"], 
+input[type="tel"], 
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="number"]:focus, 
+input[type="tel"]:focus, 
+textarea:focus {
+  border-color: var(--primary);  /* Borda laranja no foco */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(231, 138, 103, 0.2);  /* Sombra sutil */
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+/* Input de Arquivo (Fotos) */
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9f9f9;
+}
+
+input[type="file"]:focus {
+  border-color: var(--primary);
+}
+
+/* Texto Auxiliar */
+.small-muted {
+  color: #7a5b52;
+  font-size: 14px;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* Mensagem de Erro */
+.error {
+  color: var(--error);
+  margin-top: 12px;
+  padding: 10px;
+  background: #ffebee;
+  border-radius: 6px;
+  border-left: 4px solid var(--error);
+  font-size: 14px;
+}
+
+/* Botão de Submit */
+.contact-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  width: 100%;  /* Full-width no form */
+  transition: background 0.3s;
+}
+
+.contact-btn:hover {
+  background: #d67855;  /* Tom mais escuro no hover */
+}
+
+/* Responsivo (Mobile) */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    margin: 20px auto;
+  }
+  
+  .form-card {
+    padding: 20px;
+    margin-top: 10px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  input[type="text"], 
+  input[type="email"], 
+  input[type="number"], 
+  input[type="tel"], 
+  textarea {
+    padding: 10px;
+    font-size: 16px;  /* Evita zoom no iOS */
+  }
+  
+  .contact-btn {
+    padding: 14px;
+    font-size: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+  }
+  
+  .header nav a {
+    margin-left: 0;
+    margin-right: 18px;
+  }
+}
+
+    .photos-preview { display: flex; flex-wrap: wrap; margin-top: 10px; }
+    .photos-preview img { object-fit: cover; border: 1px solid #ddd; }
+    
+    /* Botões na Página de Descrição (Entre em Contato e Excluir - Tamanhos Iguais) */
+.contact-btn, .delete-btn {
+  border: none;
+  padding: 12px 20px;  /* Padding uniforme: 12px vertical, 20px horizontal (mesmo tamanho) */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;  /* Font-size igual para ambos */
+  transition: background 0.3s;
+  display: inline-block;  /* Alinha lado a lado */
+  margin: 0 5px;  /* Espaçamento pequeno entre eles */
+  text-decoration: none;  /* Remove underline se for link */
+}
+
+.contact-btn {
+  background: var(--primary);  /* Laranja original */
+  color: white;
+}
+
+.contact-btn:hover {
+  background: #d67855;  /* Hover mais escuro */
+}
+
+.delete-btn {
+  background: #d32f2f;  /* Vermelho para ação destrutiva */
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #b71c1c;  /* Hover mais escuro */
+}
+
+/* Container para os Botões (se quiser agrupar melhor) */
+.button-group {
+  display: flex;
+  gap: 10px;  /* Espaço entre botões */
+  margin-top: 16px;
+  justify-content: flex-start;  /* Alinha à esquerda */
+}
+
+/* Responsivo (Mobile: Stack se necessário) */
+@media (max-width: 768px) {
+  .contact-btn, .delete-btn {
+    padding: 10px 16px;  /* Padding menor em mobile */
+    font-size: 15px;
+    width: 100%;  /* Full-width em mobile para fácil toque */
+    margin: 5px 0;  /* Stack vertical */
+  }
+  
+  .button-group {
+    flex-direction: column;  /* Um embaixo do outro em mobile */
+  }
+}
+
+/* Setas (Visíveis e Sobrepostas na Principal) */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(231, 138, 103, 0.85); /* Primary semi-transparente */
+  color: white;
+  border: none;
+  width: 50px;             /* maior, fácil clique */
+  height: 50px;
+  border-radius: 50%;
+  font-size: 26px;         /* seta grande e legível */
+  cursor: pointer;
+  z-index: 25;             /* garante que fique acima da imagem */
+  transition: background 0.3s, transform 0.3s;
+  display: flex;           /* centraliza a seta dentro do botão */
+  align-items: center;
+  justify-content: center;
+  opacity: 1 !important;   /* força visibilidade */
+}
+
+.carousel-btn:hover {
+  background: var(--primary); /* cor cheia no hover */
+  transform: translateY(-50%) scale(1.05); /* leve zoom */
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+.product-image {
+  width: 100%;
+  height: 220px; /* altura fixa para padronizar */
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid #f1e0d6;
+  border-radius: 12px 12px 0 0;
+}
+
+.product-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* mantém proporção, sem cortar */
+  display: block;
+}
