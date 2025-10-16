@@ -14,7 +14,7 @@ Projeto web para cadastro e visualização de produtos usados (inspirado em clas
 - Backend: Java 17, Spring Boot (Web, JPA, Thymeleaf, Validation).
 - Banco: MySQL 8+.
 - Frontend: HTML/Thymeleaf + CSS customizado (responsivo).
-- Ferramentas: Maven, VS Code (recomendado).
+- Ferramentas: Maven, VS Code.
 
 ## Estrutura do Projeto:
 
